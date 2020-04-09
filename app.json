@@ -11,7 +11,14 @@
     "PLEK_SERVICE_WHITEHALL_FRONTEND_URI": "https://www.gov.uk",
     "RUNNING_ON_HEROKU": "true",
     "EXPOSE_GOVSPEAK": "true",
-    "ERRBIT_ENV": "integration"
+    "ERRBIT_ENV": "integration",
+    "REQUIRE_BASIC_AUTH": "true",
+    "BASIC_AUTH_USERNAME": {
+      "required": true
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "required": true
+    }
   },
   "image": "heroku/ruby",
   "buildpacks": [ { "url": "heroku/ruby" } ],

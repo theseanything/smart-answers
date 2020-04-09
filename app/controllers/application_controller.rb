@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
   include Slimmer::Template
 
+  if ENV["REQUIRE_BASIC_AUTH"]
+    http_basic_authenticate_with(
+      name: ENV.fetch("BASIC_AUTH_USERNAME"),
+      password: ENV.fetch("BASIC_AUTH_PASSWORD"),
+    )
+  end
+
   rescue_from GdsApi::TimedOutException, with: :error_503
   rescue_from GdsApi::HTTPForbidden, with: :error_403
   rescue_from ActionController::UnknownFormat, with: :error_404
