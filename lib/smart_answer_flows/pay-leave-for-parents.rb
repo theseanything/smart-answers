@@ -289,9 +289,9 @@ module SmartAnswer
             elsif calculator.partner_continuity?
               if calculator.employment_status_of_mother == "employee"
                 if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  outcome :outcome_mat_leave_mat_pay_pat_leave
                 elsif calculator.mother_continuity?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  outcome :outcome_mat_leave_pat_leave
                 elsif calculator.mother_still_working_on_continuity_end_date == "yes"
                   if calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance_mat_leave_pat_leave
@@ -307,7 +307,8 @@ module SmartAnswer
                 end
               elsif calculator.employment_status_of_mother == "worker"
                 if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  # TODO: Unsure about mat_pay
+                  outcome :outcome_mat_pay_pat_leave
                 elsif !calculator.mother_continuity? || !calculator.mother_lower_earnings?
                   if calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance_pat_leave
@@ -326,7 +327,7 @@ module SmartAnswer
               if calculator.employment_status_of_mother == "employee"
                 if calculator.mother_still_working_on_continuity_end_date == "yes"
                   if calculator.mother_continuity?
-                    # TODO (was question :partner_worked_at_least_26_weeks)
+                    outcome :outcome_mat_leave
                   elsif calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance_mat_leave
                   elsif !calculator.mother_earnings_employment?
@@ -341,7 +342,7 @@ module SmartAnswer
                 end
               elsif calculator.employment_status_of_mother == "worker"
                 if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  outcome :outcome_mat_pay
                 elsif !calculator.mother_continuity? || !calculator.mother_lower_earnings?
                   if calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance
@@ -401,13 +402,11 @@ module SmartAnswer
             elsif calculator.partner_continuity?
               if calculator.employment_status_of_mother == "employee"
                 if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  outcome :outcome_mat_leave_mat_pay
                 elsif !calculator.mother_continuity? || !calculator.mother_lower_earnings?
-                  if calculator.mother_continuity?
-                    # TODO (was question :partner_worked_at_least_26_weeks)
-                  elsif calculator.mother_earnings_employment?
+                  if calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance_mat_leave
-                  elsif !calculator.mother_earnings_employment?
+                  else
                     outcome :outcome_mat_leave
                   end
                 elsif calculator.mother_still_working_on_continuity_end_date == "yes"
@@ -426,7 +425,7 @@ module SmartAnswer
               end
             elsif calculator.employment_status_of_mother == "worker"
               if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                # TODO (was question :partner_worked_at_least_26_weeks)
+                outcome :outcome_mat_pay
               elsif !calculator.mother_continuity? || !calculator.mother_lower_earnings?
                 if calculator.mother_earnings_employment?
                   outcome :outcome_mat_allowance
@@ -445,7 +444,11 @@ module SmartAnswer
             if calculator.employment_status_of_mother == "employee"
               if calculator.mother_still_working_on_continuity_end_date == "yes"
                 if calculator.mother_continuity?
-                  # TODO (was question :partner_worked_at_least_26_weeks)
+                  if calculator.mother_lower_earnings?
+                    outcome :outcome_mat_leave_mat_pay
+                  else
+                    outcome :outcome_mat_leave
+                  end
                 elsif !calculator.mother_continuity?
                   if calculator.mother_earnings_employment?
                     outcome :outcome_mat_allowance_mat_leave
@@ -462,7 +465,7 @@ module SmartAnswer
               end
             elsif calculator.employment_status_of_mother == "worker"
               if calculator.mother_continuity? && calculator.mother_lower_earnings?
-                # TODO (was question :partner_worked_at_least_26_weeks)
+                outcome :outcome_mat_pay
               elsif !calculator.mother_continuity? || !calculator.mother_lower_earnings?
                 if calculator.mother_earnings_employment?
                   outcome :outcome_mat_allowance
@@ -493,12 +496,14 @@ module SmartAnswer
       outcome :outcome_mat_allowance_pat_pay
       outcome :outcome_mat_leave
       outcome :outcome_mat_leave_mat_pay
+      outcome :outcome_mat_leave_mat_pay_pat_leave
       outcome :outcome_mat_leave_mat_pay_pat_leave_pat_pay
       outcome :outcome_mat_leave_mat_pay_pat_pay
       outcome :outcome_mat_leave_pat_leave
       outcome :outcome_mat_leave_pat_leave_pat_pay
       outcome :outcome_mat_leave_pat_pay
       outcome :outcome_mat_pay
+      outcome :outcome_mat_pay_pat_leave
       outcome :outcome_mat_pay_pat_leave_pat_pay
       outcome :outcome_mat_pay_pat_pay
       outcome :outcome_pat_leave
